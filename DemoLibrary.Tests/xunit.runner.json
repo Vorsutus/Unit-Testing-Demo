@@ -1,0 +1,6 @@
+﻿{
+  //changes our test explorer so it only shows the Method name instead of Solution.Class.Method
+  //May require a restart of the Project
+  //Make sure to Rightclick on this file --> Properties --> change [Copy to Output Dir] to "Copy if newer"
+  "methodDisplay": "method"
+}
