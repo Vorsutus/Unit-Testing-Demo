@@ -19,13 +19,16 @@ namespace DemoLibrary
         {
             List<PersonModel> people = GetAllPeople();
 
+            //pass the list and the new person
             AddPersonToPeopleList(people, person);
 
+            //capture as a list of strings so we can debug something about it if needed
             List<string> lines = ConvertModelsToCSV(people);
 
             File.WriteAllLines(personTextFile, lines);
         }
 
+        //passing in out list of people and our new person
         public static void AddPersonToPeopleList(List<PersonModel> people, PersonModel person)
         {
             if (string.IsNullOrWhiteSpace(person.FirstName))
@@ -41,6 +44,7 @@ namespace DemoLibrary
             people.Add(person);
         }
 
+        //passing in the list of persons, returning the list of strings
         public static List<string> ConvertModelsToCSV(List<PersonModel> people)
         {
             List<string> output = new List<string>();
