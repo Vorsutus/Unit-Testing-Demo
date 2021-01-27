@@ -25,6 +25,7 @@ namespace DemoLibrary
             //capture as a list of strings so we can debug something about it if needed
             List<string> lines = ConvertModelsToCSV(people);
 
+            //this is a Microsoft method so as long as everything leading up to it is good, it should be good
             File.WriteAllLines(personTextFile, lines);
         }
 
