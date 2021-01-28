@@ -74,13 +74,18 @@ namespace DemoLibrary
             List<PersonModel> output = new List<PersonModel>();
             string[] content = File.ReadAllLines(personTextFile);
 
-            foreach (string line in content)
+            return SplitStringsAndAddToPersonList(content, output);
+        }
+
+        public static List<PersonModel> SplitStringsAndAddToPersonList(string[] stringContent, List<PersonModel> peopleList)
+        {
+            foreach (string line in stringContent)
             {
                 string[] data = line.Split(',');
-                output.Add(new PersonModel { FirstName = data[0], LastName = data[1] });
+                peopleList.Add(new PersonModel { FirstName = data[0], LastName = data[1] });
             }
 
-            return output;
+            return peopleList;
         }
     }
 }
