@@ -43,8 +43,42 @@ namespace DemoLibrary.Tests
             Assert.Throws<ArgumentException>(param, () => DataAccess.AddPersonToPeopleList(people, newPerson));
         }
 
-        //TODO - Add Unit Test for ConvertModelsToCSV()
+        [Theory]
+        [InlineData("", "Ross", "FirstName")]
+        [InlineData("Chris-", "Ross", "FirstName")]
+        [InlineData("Chris M", "Ross", "FirstName")]
+        [InlineData("Chris", "", "LastName")]
+        [InlineData("Chris", "Ross2", "LastName")]
+        [InlineData("Chris", "Ross Jr", "LastName")]
+        public void ConvertModelsToCSV_ShouldFail(string firstName, string lastName, string param)
+        {
+            //Arrange --create a test case user and add them to the People List
+            PersonModel newPerson = new PersonModel { FirstName = firstName, LastName = lastName };
+            List<PersonModel> people = new List<PersonModel>();
+            people.Add(newPerson);
+            
+            //Assert the exception as the expected fail from the return value
+            Assert.Throws<ArgumentException>(param, () => DataAccess.ConvertModelsToCSV(people));
+        }
+
+        [Fact]
+        public void CovertModelsToCSV_ShouldWork()
+        {
+            //Arrange
+            PersonModel newPerson = new PersonModel { FirstName = "Chris", LastName = "Ross" };
+            List<PersonModel> people = new List<PersonModel>();
+            people.Add(newPerson);
+
+            //Act --Checks the newPerson in the people List with the ConvertModelsToCSV Method and then adds the first entry in that CSV list as a string to the newOutput variable
+            var newOutput = DataAccess.ConvertModelsToCSV(people)[0].ToString();
+
+            //Assert that there is only one item in the ConvertModelsToCSV string List
+            //Assert that the string matches what we expect it to be
+            Assert.True(DataAccess.ConvertModelsToCSV(people).Count == 1);
+            Assert.Equal($"{ newPerson.FirstName },{ newPerson.LastName }", newOutput);
+        }
 
         //TODO - Add Unit Test for GetAllPeople()
+
     }
 }

@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace DemoLibrary
 {
@@ -52,6 +53,16 @@ namespace DemoLibrary
 
             foreach (PersonModel user in people)
             {
+                if (!user.FirstName.All(Char.IsLetter) || string.IsNullOrWhiteSpace(user.FirstName))
+                {
+                    throw new ArgumentException("You passed in an invalid Character", "FirstName");
+                }
+
+                if (!user.LastName.All(Char.IsLetter) || string.IsNullOrWhiteSpace(user.LastName))
+                {
+                    throw new ArgumentException("You passed in an invalid Name", "LastName");
+                }
+
                 output.Add($"{ user.FirstName },{ user.LastName }");
             }
 
